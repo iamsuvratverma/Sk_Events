@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK Events - Premium Event Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&amp;family=Poppins:wght@300;400;500;600;700&amp;family=Great+Vibes&amp;display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: '#E8751A',
+                        maroon: '#800020',
+                        gold: '#D4AF37',
+                        deepRed: '#C41E3A',
+                        royalPurple: '#4B0082',
+                        cream: '#FFF8F0',
+                        darkBrown: '#3B1C0A',
+                    },
+                    fontFamily: {
+                        playfair: ['Playfair Display', 'serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                        script: ['Great Vibes', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FFF8F0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E8751A;
+        }
+
+        /* Hero Parallax */
+        .hero-bg {
+            background:
+                linear-gradient(135deg,
+                    rgba(59, 28, 10, 0.85) 0%,
+                    rgba(128, 0, 32, 0.75) 50%,
+                    rgba(75, 0, 130, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1519225421980-715cb0215aed') center/cover no-repeat fixed;
+        }
+
+        /* Mandala Decorative Pattern */
+        .mandala-border {
+            background-image: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(212, 175, 55, 0.1) 10deg 20deg);
+            border-radius: 50%;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        .float-anim {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-anim-delay {
+            animation: float 6s ease-in-out 2s infinite;
+        }
+
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #D4AF37, #FFD700, #D4AF37, #FFD700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* Pulse Glow */
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+            }
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        /* Card Hover */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Pricing Card */
+        .pricing-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .pricing-card:hover::before {
+            left: 100%;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .pricing-popular {
+            border: 2px solid #D4AF37;
+            transform: scale(1.05);
+        }
+
+        .pricing-popular:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        /* Nav Styles */
+        .nav-glass {
+            backdrop-filter: blur(20px);
+            background: rgba(59, 28, 10, 0.8);
+        }
+
+        /* Team Card */
+        .team-card {
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+
+        .team-overlay {
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        /* Gallery */
+        .gallery-item {
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            height: 1px;
+        }
+
+        /* Stats Counter */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Diya/Festival Glow */
+        @keyframes diyaGlow {
+
+            0%,
+            100% {
+                filter: brightness(1) drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+            }
+
+            50% {
+                filter: brightness(1.3) drop-shadow(0 0 25px rgba(212, 175, 55, 0.8));
+            }
+        }
+
+        .diya-glow {
+            animation: diyaGlow 3s ease-in-out infinite;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Decorative Corner */
+        .corner-ornament::before,
+        .corner-ornament::after {
+            content: '✦';
+            position: absolute;
+            color: #D4AF37;
+            font-size: 1.5rem;
+        }
+
+        .corner-ornament::before {
+            top: -10px;
+            left: -10px;
+        }
+
+        .corner-ornament::after {
+            bottom: -10px;
+            right: -10px;
+        }
+
+        /* Testimonial */
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Toast */
+        .toast {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Process Line */
+        .process-line {
+            background: linear-gradient(180deg, #D4AF37, #E8751A);
+        }
+    </style>
+</head>
+
+<body class="bg-cream text-darkBrown">
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center pulse-glow">
+                        <span class="font-playfair font-bold text-white text-lg">SK</span>
+                    </div>
+                    <div>
+                        <span class="font-playfair text-2xl font-bold text-gold">SK</span>
+                        <span class="font-playfair text-2xl font-bold text-white"> Events</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#about"
+                        class="text-white/80 hover:text-gold transition-colors text-sm font-medium">About</a>
+                    <a href="#services"
+                        class="text-white/80 hover:text-gold transition-colors text-sm font-medium">Services</a>
+                    <a href="#pricing"
+                        class="text-white/80 hover:text-gold transition-colors text-sm font-medium">Pricing</a>
+                    <a href="#gallery"
+                        class="text-white/80 hover:text-gold transition-colors text-sm font-medium">Gallery</a>
+                    <a href="#team" class="text-white/80 hover:text-gold transition-colors text-sm font-medium">Our
+                        Team</a>
+                    <a href="#process"
+                        class="text-white/80 hover:text-gold transition-colors text-sm font-medium">Process</a>
+                    <a href="#testimonials"
+                        class="text-white/80 hover:text-gold transition-colors text-sm font-medium">Reviews</a>
+                    <a href="#contact"
+                        class="bg-gold hover:bg-saffron text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all hover:shadow-lg hover:shadow-gold/30">Book
+                        Now</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuBtn" class="lg:hidden text-white p-2" onclick="toggleMenu()">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-72 h-full bg-darkBrown/95 backdrop-blur-xl z-50 p-8">
+        <button class="absolute top-6 right-6 text-white" onclick="toggleMenu()">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="mt-16 flex flex-col gap-6">
+            <a href="#about" onclick="toggleMenu()"
+                class="text-white/80 hover:text-gold transition-colors text-lg font-medium">About</a>
+            <a href="#services" onclick="toggleMenu()"
+                class="text-white/80 hover:text-gold transition-colors text-lg font-medium">Services</a>
+            <a href="#pricing" onclick="toggleMenu()"
+                class="text-white/80 hover:text-gold transition-colors text-lg font-medium">Pricing</a>
+            <a href="#gallery" onclick="toggleMenu()"
+                class="text-white/80 hover:text-gold transition-colors text-lg font-medium">Gallery</a>
+            <a href="#team" onclick="toggleMenu()"
+                class="text-white/80 hover:text-gold transition-colors text-lg font-medium">Our Team</a>
+            <a href="#process" onclick="toggleMenu()"
+                class="text-white/80 hover:text-gold transition-colors text-lg font-medium">Process</a>
+            <a href="#testimonials" onclick="toggleMenu()"
+                class="text-white/80 hover:text-gold transition-colors text-lg font-medium">Reviews</a>
+            <a href="#contact" onclick="toggleMenu()"
+                class="bg-gold hover:bg-saffron text-white px-6 py-3 rounded-full text-lg font-semibold transition-all text-center mt-4">Book
+                Now</a>
+        </div>
+    </div>
+    <!-- Overlay -->
+    <div id="menuOverlay" class="fixed inset-0 bg-black/50 z-40 hidden" onclick="toggleMenu()"></div>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section id="hero" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-20 right-20 text-6xl opacity-20">
+            💍
+        </div>
+
+        <div class="absolute bottom-20 left-20 text-6xl opacity-20">
+            🎊
+        </div>
+
+        <div class="absolute top-1/2 right-10 text-5xl opacity-20">
+            ✨
+        </div>
+        <div class="absolute top-20 left-10 w-20 h-20 mandala-border opacity-20 float-anim"></div>
+        <div class="absolute bottom-20 right-10 w-32 h-32 mandala-border opacity-15 float-anim-delay"></div>
+        <div class="absolute top-1/3 right-1/4 w-3 h-3 bg-gold rounded-full float-anim opacity-40"></div>
+        <div class="absolute bottom-1/3 left-1/4 w-2 h-2 bg-saffron rounded-full float-anim-delay opacity-40"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-0">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div
+                        class="inline-flex items-center gap-2 bg-gold/20 border border-gold/30 px-4 py-2 rounded-full mb-6">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i>
+                        <span class="text-gold text-sm font-medium">
+                            Premium Wedding & Event Planners
+                        </span>
+                    </div>
+                    <h1 class="font-playfair text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                        Making Your
+                        <span class="shimmer-text block">Dream Events</span>
+                        Come True
+                    </h1>
+                    <p class="text-white/70 text-lg mb-8 max-w-xl mx-auto lg:mx-0">
+                        From Haldi to Reception, from Birthday to Mehndi — we craft every celebration with love,
+                        tradition, and perfection. Your special day deserves the SK Events touch.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact"
+                            class="bg-gold hover:bg-saffron text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-lg hover:shadow-gold/30 flex items-center justify-center gap-2">
+                            <i data-lucide="calendar" class="w-5 h-5"></i>
+                            Plan Your Event
+                        </a>
+                        <a href="#services"
+                            class="border-2 border-white/30 hover:border-gold text-white px-8 py-4 rounded-full font-semibold transition-all hover:bg-gold/10 flex items-center justify-center gap-2">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            Explore Services
+                        </a>
+                    </div>
+                    <!-- Stats -->
+                    <div class="flex flex-wrap gap-8 mt-12 justify-center lg:justify-start">
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-gold font-playfair" id="stat1">0</p>
+                            <p class="text-white/60 text-sm">Events Done</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-gold font-playfair" id="stat2">0</p>
+                            <p class="text-white/60 text-sm">Happy Clients</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-gold font-playfair" id="stat3">0</p>
+                            <p class="text-white/60 text-sm">Cities Covered</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hero Image -->
+                <div class="relative hidden lg:block">
+                    <div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl shadow-gold/20 pulse-glow">
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed" alt="Royal Wedding"
+                            class="w-full h-[500px] object-cover">
+                    </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl z-20 float-anim">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center">
+                                <i data-lucide="award" class="w-6 h-6 text-gold"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-darkBrown text-sm">Top Rated</p>
+                                <p class="text-xs text-darkBrown/60">5-Star on Google</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6"></i>
+        </div>
+    </section>
+
+    <!-- ============ ABOUT US SECTION ============ -->
+    <section id="about" class="py-20 lg:py-28 bg-cream relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Image Side -->
+                <div class="relative reveal">
+                    <div class="rounded-3xl overflow-hidden shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf" alt="Wedding Team"
+                            class="w-full h-[450px] object-cover">
+                    </div>
+                    <!-- Experience Badge -->
+                    <div class="absolute -bottom-6 -right-6 bg-gold text-white rounded-2xl p-6 shadow-xl">
+                        <p class="font-playfair text-4xl font-bold">8+</p>
+                        <p class="text-sm font-medium">Years of<br>Excellence</p>
+                    </div>
+                    <!-- Floating Image -->
+                    <div
+                        class="absolute -top-6 -left-6 w-32 h-32 rounded-2xl overflow-hidden shadow-lg border-4 border-white float-anim">
+                        <img src="https://static.photos/holiday/200x200/55" alt="Event Decoration"
+                            class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- Content Side -->
+                <div class="reveal">
+                    <p class="font-script text-saffron text-2xl mb-2">Who We Are</p>
+                    <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-darkBrown mb-6">
+                        We Bring Your <span class="text-gold">Celebrations</span> to Life
+                    </h2>
+                    <div class="section-divider mb-6 w-24"></div>
+                    <p class="text-darkBrown/70 leading-relaxed mb-4">
+                        <strong class="text-darkBrown">SK Events</strong> is a full-service event management company
+                        specializing in Indian celebrations. From the vibrant hues of Haldi to the intricate patterns of
+                        Mehndi, from the sacred vows of Shaadi to the grand Reception — we handle it all with
+                        perfection.
+                    </p>
+                    <p class="text-darkBrown/70 leading-relaxed mb-8">
+                        Our team of passionate planners, designers, and coordinators work tirelessly to ensure every
+                        detail is flawless. We believe every celebration is unique, and we tailor our services to match
+                        your vision, culture, and budget.
+                    </p>
+
+                    <!-- Values -->
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center gap-3 bg-gold/5 rounded-xl p-4">
+                            <div class="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center shrink-0">
+                                <i data-lucide="heart" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <span class="font-medium text-sm">Personalized Touch</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-gold/5 rounded-xl p-4">
+                            <div class="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center shrink-0">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <span class="font-medium text-sm">Trusted Quality</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-gold/5 rounded-xl p-4">
+                            <div class="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center shrink-0">
+                                <i data-lucide="clock" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <span class="font-medium text-sm">On-Time Delivery</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-gold/5 rounded-xl p-4">
+                            <div class="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center shrink-0">
+                                <i data-lucide="indian-rupee" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <span class="font-medium text-sm">Budget Friendly</span>
+                        </div>
+                    </div>
+
+                    <a href="#services"
+                        class="inline-flex items-center gap-2 bg-darkBrown hover:bg-maroon text-white px-8 py-3 rounded-full font-semibold transition-all">
+                        Explore Our Services
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SERVICES SECTION ============ -->
+    <section id="services" class="py-20 lg:py-28 bg-gradient-to-b from-cream via-white to-cream relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <p class="font-script text-saffron text-2xl mb-2">What We Offer</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-darkBrown mb-4">
+                    Our <span class="text-gold">Premium</span> Services
+                </h2>
+                <div class="section-divider mx-auto w-24 mb-4"></div>
+                <p class="text-darkBrown/60 max-w-2xl mx-auto">
+                    From intimate birthday celebrations to grand wedding receptions — we offer end-to-end event
+                    management for every Indian occasion.
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Birthday -->
+                <div class="service-card bg-white rounded-3xl overflow-hidden shadow-lg group reveal">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://static.photos/holiday/640x360/101" alt="Birthday Celebration"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkBrown/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="bg-gold/90 text-white text-xs px-3 py-1 rounded-full font-medium">Starting
+                                ₹15,000</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-saffron/10 rounded-xl flex items-center justify-center">
+                                <i data-lucide="cake" class="w-5 h-5 text-saffron"></i>
+                            </div>
+                            <h3 class="font-playfair text-xl font-bold">Birthday Parties</h3>
+                        </div>
+                        <p class="text-darkBrown/60 text-sm mb-4">Complete birthday planning — themes, decorations,
+                            cake, entertainment, catering &amp; return gifts for all ages.</p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Theme Decoration &amp;
+                                Setup</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Cake &amp; Candle
+                                Arrangement</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Games &amp; Entertainment
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Photography &amp;
+                                Videography</li>
+                        </ul>
+                        <a href="#pricing"
+                            class="text-gold font-semibold text-sm flex items-center gap-2 hover:text-saffron transition-colors group/link">
+                            View Packages <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Haldi -->
+                <div class="service-card bg-white rounded-3xl overflow-hidden shadow-lg group reveal">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866" alt="Haldi Ceremony"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkBrown/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="bg-saffron/90 text-white text-xs px-3 py-1 rounded-full font-medium">Starting
+                                ₹25,000</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-yellow-500/10 rounded-xl flex items-center justify-center">
+                                <i data-lucide="sun" class="w-5 h-5 text-yellow-600"></i>
+                            </div>
+                            <h3 class="font-playfair text-xl font-bold">Haldi Ceremony</h3>
+                        </div>
+                        <p class="text-darkBrown/60 text-sm mb-4">Traditional &amp; trendy Haldi setups with floral
+                            decorations, organic haldi, dhol music, and beautiful photo backgrounds.</p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Traditional Floral Décor
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Organic Haldi Kit</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Dhol &amp; Music
+                                Arrangement</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Photo Booth Setup</li>
+                        </ul>
+                        <a href="#pricing"
+                            class="text-gold font-semibold text-sm flex items-center gap-2 hover:text-saffron transition-colors group/link">
+                            View Packages <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mehndi -->
+                <div class="service-card bg-white rounded-3xl overflow-hidden shadow-lg group reveal">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff" alt="Mehndi Ceremony"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkBrown/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="bg-green-600/90 text-white text-xs px-3 py-1 rounded-full font-medium">Starting
+                                ₹30,000</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center">
+                                <i data-lucide="flower-2" class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <h3 class="font-playfair text-xl font-bold">Mehndi Ceremony</h3>
+                        </div>
+                        <p class="text-darkBrown/60 text-sm mb-4">Colorful &amp; festive Mehndi setups with professional
+                            artists, live music, folk performances, and stunning décor.</p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Professional Mehndi
+                                Artists</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Vibrant Seating &amp;
+                                Décor</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Live Music / DJ
+                                Arrangement</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Folk Dance Performance
+                            </li>
+                        </ul>
+                        <a href="#pricing"
+                            class="text-gold font-semibold text-sm flex items-center gap-2 hover:text-saffron transition-colors group/link">
+                            View Packages <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Shaadi / Wedding -->
+                <div
+                    class="service-card bg-white rounded-3xl overflow-hidden shadow-lg group reveal md:col-span-2 lg:col-span-1">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552" alt="Indian Wedding"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-maroon/90 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="bg-maroon/90 text-white text-xs px-3 py-1 rounded-full font-medium">Starting
+                                ₹1,50,000</span>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-gold text-white text-xs px-3 py-1 rounded-full font-bold">
+                            Most Popular</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-maroon/10 rounded-xl flex items-center justify-center">
+                                <i data-lucide="heart" class="w-5 h-5 text-maroon"></i>
+                            </div>
+                            <h3 class="font-playfair text-xl font-bold">Shaadi (Wedding)</h3>
+                        </div>
+                        <p class="text-darkBrown/60 text-sm mb-4">Complete wedding planning — mandap, décor, catering,
+                            DJ, photography, entry ideas, baraat arrangement &amp; more.</p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Mandap &amp; Stage
+                                Decoration</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Catering &amp; Cuisine
+                                Planning</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Baraat &amp; Entry
+                                Arrangement</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Full Photography &amp;
+                                Film</li>
+                        </ul>
+                        <a href="#pricing"
+                            class="text-gold font-semibold text-sm flex items-center gap-2 hover:text-saffron transition-colors group/link">
+                            View Packages <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Reception -->
+                <div class="service-card bg-white rounded-3xl overflow-hidden shadow-lg group reveal">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a" alt="Reception Event"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-royalPurple/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span
+                                class="bg-royalPurple/90 text-white text-xs px-3 py-1 rounded-full font-medium">Starting
+                                ₹2,00,000</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center">
+                                <i data-lucide="glass-water" class="w-5 h-5 text-purple-600"></i>
+                            </div>
+                            <h3 class="font-playfair text-xl font-bold">Reception</h3>
+                        </div>
+                        <p class="text-darkBrown/60 text-sm mb-4">Grand reception planning with elegant stage, light
+                            decoration, dinner arrangement, and entertainment night.</p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Elegant Stage &amp;
+                                Lighting</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Dinner &amp; Banquet
+                                Setup</li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>DJ &amp; Live Performance
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i
+                                    data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>Guest Management</li>
+                        </ul>
+                        <a href="#pricing"
+                            class="text-gold font-semibold text-sm flex items-center gap-2 hover:text-saffron transition-colors group/link">
+                            View Packages <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Complete Wedding Package -->
+                <div
+                    class="service-card bg-gradient-to-br from-darkBrown to-maroon rounded-3xl overflow-hidden shadow-lg group reveal">
+                    <div class="p-8 h-full flex flex-col justify-center items-center text-center">
+                        <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mb-4 diya-glow">
+                            <i data-lucide="crown" class="w-8 h-8 text-gold"></i>
+                        </div>
+                        <h3 class="font-playfair text-2xl font-bold text-white mb-3">Complete Wedding Package</h3>
+                        <p class="text-white/60 text-sm mb-6">Haldi + Mehndi + Shaadi + Reception — Everything in one
+                            package with special discounts!</p>
+                        <p class="text-gold font-playfair text-3xl font-bold mb-4">₹3,99,000</p>
+                        <a href="#contact"
+                            class="bg-gold hover:bg-saffron text-white px-8 py-3 rounded-full font-semibold transition-all hover:shadow-lg hover:shadow-gold/30">
+                            Get Custom Quote
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PRICING SECTION ============ -->
+    <section id="pricing" class="py-20 lg:py-28 bg-darkBrown relative overflow-hidden">
+        <!-- Decorative -->
+        <div class="absolute top-0 left-0 w-64 h-64 mandala-border opacity-5 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-48 h-48 mandala-border opacity-5 translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <p class="font-script text-saffron text-2xl mb-2">Transparent Pricing</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-white mb-4">
+                    Packages &amp; <span class="text-gold">Pricing</span>
+                </h2>
+                <div class="section-divider mx-auto w-24 mb-4"></div>
+                <p class="text-white/50 max-w-2xl mx-auto">
+                    Choose the perfect package for your celebration. All prices are customizable based on your needs and
+                    guest count.
+                </p>
+            </div>
+
+            <!-- Pricing Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
+                <button onclick="filterPricing('all')"
+                    class="pricing-tab active bg-gold text-white px-6 py-2 rounded-full text-sm font-medium transition-all"
+                    data-tab="all">All Events</button>
+                <button onclick="filterPricing('birthday')"
+                    class="pricing-tab bg-white/10 text-white/70 px-6 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-tab="birthday">Birthday</button>
+                <button onclick="filterPricing('haldi')"
+                    class="pricing-tab bg-white/10 text-white/70 px-6 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-tab="haldi">Haldi</button>
+                <button onclick="filterPricing('mehndi')"
+                    class="pricing-tab bg-white/10 text-white/70 px-6 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-tab="mehndi">Mehndi</button>
+                <button onclick="filterPricing('shaadi')"
+                    class="pricing-tab bg-white/10 text-white/70 px-6 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-tab="shaadi">Shaadi</button>
+                <button onclick="filterPricing('reception')"
+                    class="pricing-tab bg-white/10 text-white/70 px-6 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-tab="reception">Reception</button>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div id="pricingGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Birthday Basic -->
+                <div class="pricing-card bg-white rounded-3xl p-8 reveal" data-category="birthday">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-saffron/10 rounded-xl flex items-center justify-center">
+                            <i data-lucide="cake" class="w-5 h-5 text-saffron"></i>
+                        </div>
+                        <span
+                            class="bg-saffron/10 text-saffron text-xs px-3 py-1 rounded-full font-medium">Birthday</span>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-darkBrown mt-3">Basic Birthday</h3>
+                    <p class="text-darkBrown/50 text-sm mb-6">Perfect for intimate celebrations</p>
+                    <p class="font-playfair text-4xl font-bold text-darkBrown mb-1">₹15,000</p>
+                    <p class="text-darkBrown/40 text-xs mb-6">For up to 50 guests</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Basic Theme Decoration</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Cake Table Setup</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Balloon Arch</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Photo Prop Setup</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/40"><i data-lucide="x"
+                                class="w-4 h-4 text-red-300"></i>Photography Service</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/40"><i data-lucide="x"
+                                class="w-4 h-4 text-red-300"></i>Catering</li>
+                    </ul>
+                    <a href="#contact"
+                        class="block w-full bg-darkBrown hover:bg-maroon text-white text-center py-3 rounded-full font-semibold transition-all">Get
+                        Quote</a>
+                </div>
+
+                <!-- Birthday Premium -->
+                <div class="pricing-card bg-white rounded-3xl p-8 reveal" data-category="birthday">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-saffron/10 rounded-xl flex items-center justify-center">
+                            <i data-lucide="cake" class="w-5 h-5 text-saffron"></i>
+                        </div>
+                        <span
+                            class="bg-saffron/10 text-saffron text-xs px-3 py-1 rounded-full font-medium">Birthday</span>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-darkBrown mt-3">Premium Birthday</h3>
+                    <p class="text-darkBrown/50 text-sm mb-6">Full event with all extras</p>
+                    <p class="font-playfair text-4xl font-bold text-darkBrown mb-1">₹45,000</p>
+                    <p class="text-darkBrown/40 text-xs mb-6">For up to 150 guests</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Custom Theme Décor</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Designer Cake Setup</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Balloon &amp; Floral Arch</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Photography &amp; Video</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Games &amp; Magic Show</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Catering (Snacks)</li>
+                    </ul>
+                    <a href="#contact"
+                        class="block w-full bg-gold hover:bg-saffron text-white text-center py-3 rounded-full font-semibold transition-all">Get
+                        Quote</a>
+                </div>
+
+                <!-- Haldi -->
+                <div class="pricing-card bg-white rounded-3xl p-8 reveal" data-category="haldi">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-yellow-500/10 rounded-xl flex items-center justify-center">
+                            <i data-lucide="sun" class="w-5 h-5 text-yellow-600"></i>
+                        </div>
+                        <span
+                            class="bg-yellow-500/10 text-yellow-600 text-xs px-3 py-1 rounded-full font-medium">Haldi</span>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-darkBrown mt-3">Haldi Special</h3>
+                    <p class="text-darkBrown/50 text-sm mb-6">Traditional &amp; modern setup</p>
+                    <p class="font-playfair text-4xl font-bold text-darkBrown mb-1">₹35,000</p>
+                    <p class="text-darkBrown/40 text-xs mb-6">For up to 100 guests</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Floral &amp; Marigold Décor</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Organic Haldi Kit</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Dhol &amp; Playlist</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Photo Booth</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Seating Arrangement</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Cool Drinks &amp; Snacks</li>
+                    </ul>
+                    <a href="#contact"
+                        class="block w-full bg-darkBrown hover:bg-maroon text-white text-center py-3 rounded-full font-semibold transition-all">Get
+                        Quote</a>
+                </div>
+
+                <!-- Mehndi -->
+                <div class="pricing-card bg-white rounded-3xl p-8 reveal" data-category="mehndi">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-green-500/10 rounded-xl flex items-center justify-center">
+                            <i data-lucide="flower-2" class="w-5 h-5 text-green-600"></i>
+                        </div>
+                        <span
+                            class="bg-green-500/10 text-green-600 text-xs px-3 py-1 rounded-full font-medium">Mehndi</span>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-darkBrown mt-3">Mehndi Mehfil</h3>
+                    <p class="text-darkBrown/50 text-sm mb-6">Festive &amp; colorful setup</p>
+                    <p class="font-playfair text-4xl font-bold text-darkBrown mb-1">₹50,000</p>
+                    <p class="text-darkBrown/40 text-xs mb-6">For up to 100 guests</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Vibrant Décor &amp; Seating</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>3 Professional Mehndi Artists</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>DJ &amp; Dance Floor</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Folk Performance</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Catering (Chaats)</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Photography</li>
+                    </ul>
+                    <a href="#contact"
+                        class="block w-full bg-darkBrown hover:bg-maroon text-white text-center py-3 rounded-full font-semibold transition-all">Get
+                        Quote</a>
+                </div>
+
+                <!-- Shaadi Popular -->
+                <div class="pricing-card pricing-popular bg-white rounded-3xl p-8 relative reveal"
+                    data-category="shaadi">
+                    <div
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold text-white text-xs px-4 py-1 rounded-full font-bold">
+                        ★ Most Popular</div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-maroon/10 rounded-xl flex items-center justify-center">
+                            <i data-lucide="heart" class="w-5 h-5 text-maroon"></i>
+                        </div>
+                        <span class="bg-maroon/10 text-maroon text-xs px-3 py-1 rounded-full font-medium">Shaadi</span>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-darkBrown mt-3">Royal Shaadi</h3>
+                    <p class="text-darkBrown/50 text-sm mb-6">Complete wedding planning</p>
+                    <p class="font-playfair text-4xl font-bold text-darkBrown mb-1">₹2,50,000</p>
+                    <p class="text-darkBrown/40 text-xs mb-6">For up to 300 guests</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Mandap &amp; Stage Décor</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Full Catering Service</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Baraat Arrangement</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>DJ &amp; Entertainment</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Photography &amp; Film</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Invitation Card Design</li>
+                    </ul>
+                    <a href="#contact"
+                        class="block w-full bg-gold hover:bg-saffron text-white text-center py-3 rounded-full font-semibold transition-all">Get
+                        Quote</a>
+                </div>
+
+                <!-- Reception -->
+                <div class="pricing-card bg-white rounded-3xl p-8 reveal" data-category="reception">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center">
+                            <i data-lucide="glass-water" class="w-5 h-5 text-purple-600"></i>
+                        </div>
+                        <span
+                            class="bg-purple-500/10 text-purple-600 text-xs px-3 py-1 rounded-full font-medium">Reception</span>
+                    </div>
+                    <h3 class="font-playfair text-2xl font-bold text-darkBrown mt-3">Grand Reception</h3>
+                    <p class="text-darkBrown/50 text-sm mb-6">An unforgettable evening</p>
+                    <p class="font-playfair text-4xl font-bold text-darkBrown mb-1">₹3,00,000</p>
+                    <p class="text-darkBrown/40 text-xs mb-6">For up to 500 guests</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Elegant Stage &amp; Lights</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Premium Banquet Dinner</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>DJ &amp; Live Band</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Cinematic Photography</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Guest Welcome Kit</li>
+                        <li class="flex items-center gap-2 text-sm text-darkBrown/70"><i data-lucide="check"
+                                class="w-4 h-4 text-gold"></i>Valet Parking</li>
+                    </ul>
+                    <a href="#contact"
+                        class="block w-full bg-darkBrown hover:bg-maroon text-white text-center py-3 rounded-full font-semibold transition-all">Get
+                        Quote</a>
+                </div>
+            </div>
+
+            <p class="text-white/40 text-sm text-center mt-8 reveal">* All prices are approximate and may vary based on
+                location, date, and specific requirements. Contact us for a custom quote.</p>
+        </div>
+    </section>
+
+    <!-- ============ GALLERY / SAMPLES SECTION ============ -->
+    <section id="gallery" class="py-20 lg:py-28 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <p class="font-script text-saffron text-2xl mb-2">Our Work</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-darkBrown mb-4">
+                    Event <span class="text-gold">Gallery</span> &amp; Samples
+                </h2>
+                <div class="section-divider mx-auto w-24 mb-4"></div>
+                <p class="text-darkBrown/60 max-w-2xl mx-auto">
+                    A glimpse of the magical moments we've created. Every event tells a story — let us write yours.
+                </p>
+            </div>
+
+            <!-- Gallery Filter -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10 reveal">
+                <button onclick="filterGallery('all')"
+                    class="gallery-tab active bg-gold text-white px-5 py-2 rounded-full text-sm font-medium transition-all"
+                    data-gtab="all">All</button>
+                <button onclick="filterGallery('birthday')"
+                    class="gallery-tab bg-darkBrown/5 text-darkBrown/60 px-5 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-gtab="birthday">Birthday</button>
+                <button onclick="filterGallery('haldi')"
+                    class="gallery-tab bg-darkBrown/5 text-darkBrown/60 px-5 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-gtab="haldi">Haldi</button>
+                <button onclick="filterGallery('mehndi')"
+                    class="gallery-tab bg-darkBrown/5 text-darkBrown/60 px-5 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-gtab="mehndi">Mehndi</button>
+                <button onclick="filterGallery('wedding')"
+                    class="gallery-tab bg-darkBrown/5 text-darkBrown/60 px-5 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-gtab="wedding">Wedding</button>
+                <button onclick="filterGallery('reception')"
+                    class="gallery-tab bg-darkBrown/5 text-darkBrown/60 px-5 py-2 rounded-full text-sm font-medium transition-all hover:bg-gold hover:text-white"
+                    data-gtab="reception">Reception</button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="birthday"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/holiday/320x240/1" alt="Birthday Setup"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="haldi"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/nature/320x240/2" alt="Haldi Decoration"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="mehndi"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/abstract/320x240/3" alt="Mehndi Setup"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="wedding"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/season/320x240/4" alt="Wedding Mandap"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="reception"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/restaurant/320x240/5" alt="Reception Setup"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="birthday"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/holiday/320x240/6" alt="Birthday Cake"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="haldi"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/nature/320x240/7" alt="Haldi Floral"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="wedding"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/season/320x240/8" alt="Wedding Stage"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="mehndi"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/craft/320x240/9" alt="Mehndi Design"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="reception"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/indoor/320x240/10" alt="Reception Lights"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="wedding"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/wellness/320x240/11" alt="Wedding Entry"
+                        class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-2xl overflow-hidden cursor-pointer reveal" data-gcat="haldi"
+                    onclick="openLightbox(this)">
+                    <img src="https://static.photos/nature/320x240/12" alt="Haldi Function"
+                        class="w-full h-48 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4"
+        onclick="closeLightbox(event)">
+        <button class="absolute top-6 right-6 text-white" onclick="closeLightbox(event)">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <img id="lightboxImg" src="" alt="" class="max-w-full max-h-[80vh] rounded-2xl shadow-2xl">
+    </div>
+
+    <!-- ============ HOW WE WORK / PROCESS ============ -->
+    <section id="process" class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <p class="font-script text-saffron text-2xl mb-2">How It Works</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-darkBrown mb-4">
+                    Our <span class="text-gold">Simple</span> Process
+                </h2>
+                <div class="section-divider mx-auto w-24 mb-4"></div>
+                <p class="text-darkBrown/60 max-w-2xl mx-auto">From your first inquiry to the big day — we make it
+                    effortless.</p>
+            </div>
+
+            <!-- Process Steps -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+                <!-- Connecting Line (desktop only) -->
+                <div
+                    class="hidden lg:block absolute top-16 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-gold/20 via-gold to-gold/20 z-0">
+                </div>
+
+                <div class="text-center relative z-10 reveal">
+                    <div
+                        class="w-16 h-16 bg-gold text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-playfair font-bold shadow-lg shadow-gold/30">
+                        01</div>
+                    <h3 class="font-playfair text-xl font-bold mb-2">Consultation</h3>
+                    <p class="text-darkBrown/60 text-sm">Tell us your vision, budget, and requirements. We listen and
+                        understand.</p>
+                </div>
+                <div class="text-center relative z-10 reveal">
+                    <div
+                        class="w-16 h-16 bg-saffron text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-playfair font-bold shadow-lg shadow-saffron/30">
+                        02</div>
+                    <h3 class="font-playfair text-xl font-bold mb-2">Planning &amp; Design</h3>
+                    <p class="text-darkBrown/60 text-sm">We create mood boards, floor plans, vendor lists, and a
+                        detailed timeline.</p>
+                </div>
+                <div class="text-center relative z-10 reveal">
+                    <div
+                        class="w-16 h-16 bg-maroon text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-playfair font-bold shadow-lg shadow-maroon/30">
+                        03</div>
+                    <h3 class="font-playfair text-xl font-bold mb-2">Execution</h3>
+                    <p class="text-darkBrown/60 text-sm">Our team sets up everything — décor, vendors, coordination —
+                        flawlessly.</p>
+                </div>
+                <div class="text-center relative z-10 reveal">
+                    <div
+                        class="w-16 h-16 bg-darkBrown text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-playfair font-bold shadow-lg shadow-darkBrown/30">
+                        04</div>
+                    <h3 class="font-playfair text-xl font-bold mb-2">Enjoy the Day!</h3>
+                    <p class="text-darkBrown/60 text-sm">You just celebrate — we handle every last detail while you make
+                        memories.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ MEET THE TEAM SECTION ============ -->
+    <section id="team" class="py-20 lg:py-28 bg-gradient-to-b from-cream via-white to-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <p class="font-script text-saffron text-2xl mb-2">The Dream Team</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-darkBrown mb-4">
+                    Meet <span class="text-gold">Team SK</span>
+                </h2>
+                <div class="section-divider mx-auto w-24 mb-4"></div>
+                <p class="text-darkBrown/60 max-w-2xl mx-auto">
+                    The passionate people behind every perfect celebration. Together, we bring dreams to reality.
+                </p>
+            </div>
+
+            <!-- Team Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Suvrat -->
+                <div class="team-card bg-white rounded-3xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://static.photos/people/640x360/101" alt="Suvrat"
+                            class="w-full h-full object-cover">
+                        <div
+                            class="team-overlay absolute inset-0 bg-gradient-to-t from-gold/80 to-transparent flex items-end p-6">
+                            <div class="flex gap-3">
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-gold transition-colors">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-gold transition-colors">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-gold transition-colors">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-playfair text-xl font-bold text-darkBrown">Suvrat</h3>
+                        <p class="text-gold font-medium text-sm mb-2">Founder &amp; Lead Planner</p>
+                        <p class="text-darkBrown/50 text-xs">Visionary planner with 8+ years of experience in crafting
+                            unforgettable Indian weddings.</p>
+                    </div>
+                </div>
+
+                <!-- Krishan -->
+                <div class="team-card bg-white rounded-3xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://static.photos/people/640x360/102" alt="Krishna"
+                            class="w-full h-full object-cover">
+                        <div
+                            class="team-overlay absolute inset-0 bg-gradient-to-t from-saffron/80 to-transparent flex items-end p-6">
+                            <div class="flex gap-3">
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-saffron transition-colors">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-saffron transition-colors">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-saffron transition-colors">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 text-center">
+                        <h3 class="font-playfair text-xl font-bold text-darkBrown">Krishna Gupta</h3>
+                        <p class="text-saffron font-medium text-sm mb-2">Decoration &amp; Design Head</p>
+                        <p class="text-darkBrown/50 text-xs">Creative genius who transforms venues into breathtaking
+                            spaces with theme expertise.</p>
+                    </div>
+                </div>
+
+                <!-- Shrusti -->
+                <div class="team-card bg-white rounded-3xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://static.photos/people/640x360/103" alt="Shrusti"
+                            class="w-full h-full object-cover">
+                        <div
+                            class="team-overlay absolute inset-0 bg-gradient-to-t from-maroon/80 to-transparent flex items-end p-6">
+                            <div class="flex gap-3">
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-maroon transition-colors">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-maroon transition-colors">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-maroon transition-colors">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-playfair text-xl font-bold text-darkBrown">Shrusti Kaushal </h3>
+                        <p class="text-maroon font-medium text-sm mb-2">Client Relations Manager</p>
+                        <p class="text-darkBrown/50 text-xs">Your go-to person for smooth coordination, vendor
+                            management &amp; personal touches.</p>
+                    </div>
+                </div>
+
+                <!-- Vivek -->
+                <div class="team-card bg-white rounded-3xl overflow-hidden shadow-lg reveal">
+                    <div class="relative h-72 overflow-hidden">
+                        <img src="https://static.photos/people/640x360/104" alt="Vivek"
+                            class="w-full h-full object-cover">
+                        <div
+                            class="team-overlay absolute inset-0 bg-gradient-to-t from-royalPurple/80 to-transparent flex items-end p-6">
+                            <div class="flex gap-3">
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-royalPurple transition-colors">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-royalPurple transition-colors">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-royalPurple transition-colors">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-playfair text-xl font-bold text-darkBrown">Vivek kumar</h3>
+                        <p class="text-royalPurple font-medium text-sm mb-2">Logistics &amp; Operations Lead</p>
+                        <p class="text-darkBrown/50 text-xs">The backbone behind every event — managing timelines,
+                            staff, and on-ground operations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS SECTION ============ -->
+    <section id="testimonials" class="py-20 lg:py-28 bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <p class="font-script text-saffron text-2xl mb-2">Happy Clients</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-darkBrown mb-4">
+                    What People <span class="text-gold">Say</span>
+                </h2>
+                <div class="section-divider mx-auto w-24 mb-4"></div>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-white rounded-3xl p-8 reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                    </div>
+                    <p class="text-darkBrown/70 text-sm mb-6 italic">"SK Events made our wedding absolutely magical!
+                        From Haldi to Reception, every function was perfect. Suvrat and team went above and beyond our
+                        expectations."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://static.photos/people/200x200/51" alt="Priya &amp; Rahul"
+                            class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-sm">Priya &amp; Rahul Sharma</p>
+                            <p class="text-gold text-xs">Wedding Package</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white rounded-3xl p-8 reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                    </div>
+                    <p class="text-darkBrown/70 text-sm mb-6 italic">"My daughter's birthday was a fairy tale! Krishan's
+                        decorations were stunning, and the kids had a blast. Thank you SK Events for making it so
+                        special!"</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://static.photos/people/200x200/52" alt="Meena Patel"
+                            class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-sm">Meena Patel</p>
+                            <p class="text-saffron text-xs">Birthday Package</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white rounded-3xl p-8 reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                    </div>
+                    <p class="text-darkBrown/70 text-sm mb-6 italic">"The Mehndi ceremony was everything we dreamed of!
+                        Shrusti was incredibly helpful, and Vivek managed everything on time. Absolutely recommended!"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://static.photos/people/200x200/53" alt="Anita &amp; Vikram"
+                            class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-sm">Anita &amp; Vikram Joshi</p>
+                            <p class="text-green-600 text-xs">Mehndi + Haldi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white rounded-3xl p-8 reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                    </div>
+                    <p class="text-darkBrown/70 text-sm mb-6 italic">"Our reception was the talk of the town! The
+                        lighting, the stage, the food — everything was world class. SK Events truly delivers 100%
+                        perfection."</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://static.photos/people/200x200/54" alt="Sneha &amp; Amit"
+                            class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-sm">Sneha &amp; Amit Verma</p>
+                            <p class="text-purple-600 text-xs">Reception Package</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white rounded-3xl p-8 reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold"></i>
+                    </div>
+                    <p class="text-darkBrown/70 text-sm mb-6 italic">"Best Haldi ceremony ever! The marigold decoration
+                        was breathtaking and the dhol beats made it so much fun. Thank you SK Events team!"</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://static.photos/people/200x200/55" alt="Ruchi &amp; Deepak"
+                            class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-sm">Ruchi &amp; Deepak Singh</p>
+                            <p class="text-yellow-600 text-xs">Haldi Ceremony</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white rounded-3xl p-8 reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
+                    </div>
+                    <p class="text-darkBrown/70 text-sm mb-6 italic">"My son's 1st birthday was magical! The theme was
+                        perfectly executed. The balloon arch and cake setup were Instagram-worthy. Great job!"</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://static.photos/people/200x200/56" alt="Neha Gupta"
+                            class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <p class="font-bold text-sm">Neha Gupta</p>
+                            <p class="text-saffron text-xs">Kids Birthday</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTACT SECTION ============ -->
+    <section id="contact" class="py-20 lg:py-28 bg-darkBrown relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-64 h-64 mandala-border opacity-5"></div>
+        <div class="absolute bottom-0 right-0 w-48 h-48 mandala-border opacity-5"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <p class="font-script text-saffron text-2xl mb-2">Let's Connect</p>
+                <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-white mb-4">
+                    Plan Your <span class="text-gold">Celebration</span>
+                </h2>
+                <div class="section-divider mx-auto w-24 mb-4"></div>
+                <p class="text-white/50 max-w-2xl mx-auto">
+                    Ready to celebrate? Fill out the form below and we'll get back to you within 24 hours!
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-12">
+                <!-- Contact Form -->
+                <div class="lg:col-span-3 reveal">
+                    <form id="contactForm" onsubmit="handleSubmit(event)"
+                        class="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="text-white/70 text-sm mb-2 block">Your Name *</label>
+                                <input type="text" required
+                                    class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:border-gold focus:outline-none transition-colors"
+                                    placeholder="Enter your name">
+                            </div>
+                            <div>
+                                <label class="text-white/70 text-sm mb-2 block">Phone Number *</label>
+                                <input type="tel" required
+                                    class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:border-gold focus:outline-none transition-colors"
+                                    placeholder="+91 XXXXX XXXXX">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="text-white/70 text-sm mb-2 block">Email</label>
+                                <input type="email"
+                                    class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:border-gold focus:outline-none transition-colors"
+                                    placeholder="your@email.com">
+                            </div>
+                            <div>
+                                <label class="text-white/70 text-sm mb-2 block">Event Type *</label>
+                                <select required
+                                    class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white/70 focus:border-gold focus:outline-none transition-colors">
+                                    <option value="">Select Event</option>
+                                    <option value="birthday">Birthday</option>
+                                    <option value="haldi">Haldi Ceremony</option>
+                                    <option value="mehndi">Mehndi Ceremony</option>
+                                    <option value="shaadi">Shaadi (Wedding)</option>
+                                    <option value="reception">Reception</option>
+                                    <option value="complete">Complete Package</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="text-white/70 text-sm mb-2 block">Event Date</label>
+                                <input type="date"
+                                    class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white/70 focus:border-gold focus:outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="text-white/70 text-sm mb-2 block">Approx Budget</label>
+                                <select
+                                    class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white/70 focus:border-gold focus:outline-none transition-colors">
+                                    <option value="">Select Budget</option>
+                                    <option value="under-25k">Under ₹25,000</option>
+                                    <option value="25k-50k">₹25,000 - ₹50,000</option>
+                                    <option value="50k-1L">₹50,000 - ₹1,00,000</option>
+                                    <option value="1L-3L">₹1,00,000 - ₹3,00,000</option>
+                                    <option value="3L-5L">₹3,00,000 - ₹5,00,000</option>
+                                    <option value="above-5L">Above ₹5,00,000</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="text-white/70 text-sm mb-2 block">Special Requirements</label>
+                            <textarea rows="4"
+                                class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:border-gold focus:outline-none transition-colors resize-none"
+                                placeholder="Tell us about your vision, preferences, number of guests..."></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-gold hover:bg-saffron text-white py-4 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-gold/30 flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                            Send Inquiry
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="lg:col-span-2 reveal">
+                    <div class="space-y-6">
+                        <div
+                            class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Our Office</h4>
+                                <p class="text-white/50 text-sm">123, Event Plaza, MG Road,<br>Indore, Madhya Pradesh -
+                                    452001</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Call / WhatsApp</h4>
+                                <p class="text-white/50 text-sm">+91 98765 43210<br>+91 87654 32109</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Email Us</h4>
+                                <p class="text-white/50 text-sm">hello@skevents.in<br>bookings@skevents.in</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center shrink-0">
+                                <i data-lucide="clock" class="w-5 h-5 text-gold"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold mb-1">Working Hours</h4>
+                                <p class="text-white/50 text-sm">Mon - Sat: 10:00 AM - 8:00 PM<br>Sunday: By Appointment
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                            <h4 class="text-white font-semibold mb-4">Follow Us</h4>
+                            <div class="flex gap-3">
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-maroon transition-colors">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-maroon transition-colors">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+
+                                <a href="#"
+                                    class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-maroon transition-colors">
+                                    <i class="fa-solid fa-phone"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA SECTION ============ -->
+    <section class="py-16 bg-gradient-to-r from-gold via-saffron to-maroon relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="mandala-border w-64 h-64 absolute top-0 right-0 translate-x-1/3 -translate-y-1/3"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <p class="font-script text-white/80 text-xl mb-2">Don't Wait!</p>
+            <h2 class="font-playfair text-4xl lg:text-5xl font-bold text-white mb-4">
+                Your Dream Event Is Just One Call Away
+            </h2>
+            <p class="text-white/70 mb-8 max-w-xl mx-auto">Book early and get 10% off on all wedding packages. Limited
+                slots for the wedding season!</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="tel:+919876543210"
+                    class="bg-white text-darkBrown px-8 py-4 rounded-full font-semibold transition-all hover:shadow-xl flex items-center justify-center gap-2">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    Call Now
+                </a>
+                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer"
+                    class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all hover:shadow-xl flex items-center justify-center gap-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    WhatsApp Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-darkBrown pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                            <span class="font-playfair font-bold text-white text-lg">SK</span>
+                        </div>
+                        <span class="font-playfair text-2xl font-bold text-white">SK Events</span>
+                    </div>
+                    <p class="text-white/40 text-sm leading-relaxed mb-4">Creating magical Indian celebrations since
+                        2016. From Haldi to Reception, we handle it all.</p>
+                    <div class="flex gap-3">
+                        <a href="#"
+                            class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center text-white/60 hover:bg-gold hover:text-white transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center text-white/60 hover:bg-gold hover:text-white transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+
+                        <a href="#"
+                            class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center text-white/60 hover:bg-gold hover:text-white transition-colors">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-white/40 hover:text-gold transition-colors text-sm">About
+                                Us</a></li>
+                        <li><a href="#services"
+                                class="text-white/40 hover:text-gold transition-colors text-sm">Services</a></li>
+                        <li><a href="#pricing"
+                                class="text-white/40 hover:text-gold transition-colors text-sm">Pricing</a></li>
+                        <li><a href="#gallery"
+                                class="text-white/40 hover:text-gold transition-colors text-sm">Gallery</a></li>
+                        <li><a href="#team" class="text-white/40 hover:text-gold transition-colors text-sm">Our Team</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Our Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-white/40 hover:text-gold transition-colors text-sm">Birthday
+                                Parties</a></li>
+                        <li><a href="#services" class="text-white/40 hover:text-gold transition-colors text-sm">Haldi
+                                Ceremony</a></li>
+                        <li><a href="#services" class="text-white/40 hover:text-gold transition-colors text-sm">Mehndi
+                                Ceremony</a></li>
+                        <li><a href="#services" class="text-white/40 hover:text-gold transition-colors text-sm">Shaadi
+                                (Wedding)</a></li>
+                        <li><a href="#services"
+                                class="text-white/40 hover:text-gold transition-colors text-sm">Reception</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-white/40 text-sm"><i data-lucide="map-pin"
+                                class="w-4 h-4 text-gold"></i>Kanpur , Uttar Pradesh Pradesh</li>
+                        <li class="flex items-center gap-2 text-white/40 text-sm"><i data-lucide="phone"
+                                class="w-4 h-4 text-gold"></i>+91 98765 43210</li>
+                        <li class="flex items-center gap-2 text-white/40 text-sm"><i data-lucide="mail"
+                                class="w-4 h-4 text-gold"></i>hello@skevents.in</li>
+                        <li class="flex items-center gap-2 text-white/40 text-sm"><i data-lucide="clock"
+                                class="w-4 h-4 text-gold"></i>Mon-Sat: 10AM-8PM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="section-divider mb-8"></div>
+
+            <!-- Bottom Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-white/30 text-sm">© 2026 SK Events. All Rights Reserved. Made with ❤️ in India</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-white/30 hover:text-gold transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-white/30 hover:text-gold transition-colors text-sm">Terms</a>
+                    <a href="#" class="text-white/30 hover:text-gold transition-colors text-sm">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer"
+        class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 transition-all hover:scale-110">
+        <i data-lucide="message-circle" class="w-7 h-7 text-white"></i>
+    </a>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="toast fixed bottom-6 left-6 z-50 bg-green-600 text-white px-6 py-3 rounded-xl shadow-xl flex items-center gap-3">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <span id="toastMsg">Message sent successfully!</span>
+    </div>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // Initialize Lucide icons after confirming the CDN library loaded.
+        function initializeLucideIcons() {
+            if (!window.lucide) {
+                console.error('Lucide failed to load. Check your internet connection or CDN access.');
+                return;
+            }
+
+            window.lucide.createIcons();
+        }
+
+        initializeLucideIcons();
+
+        // ===== MOBILE MENU =====
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('menuOverlay');
+            menu.classList.toggle('open');
+            overlay.classList.toggle('hidden');
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        }
+
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > 80) {
+                navbar.classList.add('nav-glass');
+                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+            } else {
+                navbar.classList.remove('nav-glass');
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // ===== STATS COUNTER =====
+        function animateCounter(el, target, suffix = '') {
+            let current = 0;
+            const step = Math.ceil(target / 60);
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.textContent = current + suffix;
+            }, 30);
+        }
+
+        let statsAnimated = false;
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    animateCounter(document.getElementById('stat1'), 500, '+');
+                    animateCounter(document.getElementById('stat2'), 1200, '+');
+                    animateCounter(document.getElementById('stat3'), 15, '+');
+                }
+            });
+        }, { threshold: 0.5 });
+        statsObserver.observe(document.getElementById('hero'));
+
+        // ===== SCROLL REVEAL =====
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ===== PRICING FILTER =====
+        function filterPricing(category) {
+            // Update tabs
+            document.querySelectorAll('.pricing-tab').forEach(tab => {
+                tab.classList.remove('active', 'bg-gold', 'text-white');
+                tab.classList.add('bg-white/10', 'text-white/70');
+            });
+            const activeTab = document.querySelector(`.pricing-tab[data-tab="${category}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active', 'bg-gold', 'text-white');
+                activeTab.classList.remove('bg-white/10', 'text-white/70');
+            }
+
+            // Filter cards
+            document.querySelectorAll('#pricingGrid > div').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.4s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ===== GALLERY FILTER =====
+        function filterGallery(category) {
+            // Update tabs
+            document.querySelectorAll('.gallery-tab').forEach(tab => {
+                tab.classList.remove('active', 'bg-gold', 'text-white');
+                tab.classList.add('bg-darkBrown/5', 'text-darkBrown/60');
+            });
+            const activeTab = document.querySelector(`.gallery-tab[data-gtab="${category}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active', 'bg-gold', 'text-white');
+                activeTab.classList.remove('bg-darkBrown/5', 'text-darkBrown/60');
+            }
+
+            // Filter items
+            document.querySelectorAll('#galleryGrid > div').forEach(item => {
+                if (category === 'all' || item.dataset.gcat === category) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // ===== LIGHTBOX =====
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = img.src.replace('320x240', '1024x576');
+            lightboxImg.alt = img.alt;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event.target === document.getElementById('lightbox') || event.target.closest('button')) {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ===== CONTACT FORM =====
+        function handleSubmit(e) {
+            e.preventDefault();
+            showToast('Thank you! We\'ll contact you within 24 hours. 🎉');
+            e.target.reset();
+        }
+
+        // ===== TOAST =====
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                e.preventDefault();
+                if (href === '#') return;
+
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== BACK TO TOP ON LOGO CLICK =====
+        // Already handled by smooth scroll to #hero
+
+        // Re-create icons after dynamic content changes
+        setTimeout(initializeLucideIcons, 100);
+    </script>
+
+
+    </div>
+</body>
+
+</html>
